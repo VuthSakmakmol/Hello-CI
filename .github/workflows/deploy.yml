@@ -1,0 +1,24 @@
+name: Deploy (on tag)
+
+on:
+  push:
+    tags:
+      - 'v*'        # e.g., v1.0.0
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: 'Deploy step (placeholder)'
+        run: |
+          echo 'Pretend deploy of tag ${{ github.ref_name }}'
+          ls -la dist
